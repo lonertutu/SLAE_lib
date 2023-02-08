@@ -9,3 +9,10 @@ double &Tridiagonal_matrix::operator()(unsigned int i, unsigned int j) {
         }
 
 //Реализация полей, заполенных только 0.
+
+Tridiagonal_matrix Tridiagonal_matrix::zero_field(int size) {
+    
+    Tridiagonal_matrix zero_matrix(size);
+    zero_matrix.matrix = std::vector<double>(3 * size, 0);
+    return zero_matrix;
+}
