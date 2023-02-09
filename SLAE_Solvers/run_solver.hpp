@@ -1,4 +1,4 @@
-#include "Matrixes/tridiagonal_matrix.hpp"
+#include "/home/lonertutu/SLAE/SLAE_lib/Matrixes/tridiagonal_matrix.hpp"
 
 namespace SLAE::Solver{
 

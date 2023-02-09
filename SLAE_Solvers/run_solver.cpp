@@ -22,11 +22,14 @@ namespace SLAE::Solver
         }
 
         // обратная прогонка
-
-        for (int j = 1; j < matrix.size() - 1; ++j)
+        // выразили X_{N - 1} - самый последний элемент. Сборка вектора решений начинается с конца.
+        
+        solution[(matrix.size() - 1)] = (free_coef[matrix.size() - 1] - matrix((matrix.size() - 1), 1) * alpha_beta[(matrix.size() - 2)]) / 
+        (matrix((matrix.size() - 1), 2) + matrix((matrix.size() - 1), 1) * alpha_beta[(matrix.size() - 2)]);
+        
+        for (int j = matrix.size() - 2; j >= 0; --j)
         {
-            solution[(matrix.size() - 1)] = (free_coef[matrix.size() - 1] - matrix((matrix.size() - 1), 1) * alpha_beta[(matrix.size() - 2)]) / 
-            (matrix((matrix.size() - 1), 2) + matrix((matrix.size() - 1), 1) * alpha_beta[(matrix.size() - 2)]);
+            solution[j] = alpha_beta[j * 2] * solution[j + 1] + alpha_beta[j * 2 + 1];
         }
 
         return solution;
