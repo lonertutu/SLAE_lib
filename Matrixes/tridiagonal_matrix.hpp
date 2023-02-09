@@ -12,8 +12,12 @@ class Tridiagonal_matrix {
         inline explicit Tridiagonal_matrix(int size) : size_matrix(size), matrix(std::vector<double>(3 * size)) {}; //явно определяем конструктор
 
         static Tridiagonal_matrix zero_field(int size); //один раз в программе выделяем место для полей с ноликами.
+         
+        int size() const noexcept {
+            return size_matrix;
+        }
 
-    double &operator()(unsigned int i, unsigned int j);
+        double &operator()(int i, int j);
 };
 
 }
