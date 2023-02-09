@@ -1,6 +1,7 @@
 #include "run_solver.hpp"
 #include <iostream>
 
+
 namespace SLAE::Solver
 {
     std::vector<double> solver_method_run(Tri_matrix::Tridiagonal_matrix &matrix, const std::vector<double> &free_coef)
@@ -10,6 +11,7 @@ namespace SLAE::Solver
 
         std::vector<double> alpha_beta(matrix.size() * 2);
 
+        //отдельный расчёт первых коэффициентов
         alpha_beta[0] = -matrix(0, 1) / matrix(0, 0);
         alpha_beta[1] = free_coef[0] / matrix(0, 0);
 
