@@ -19,14 +19,11 @@ T matrix_element;
 template <typename T>
 class CSR {
 
-public:
-    using elements = T;
-
 private:
-    const T hight, width;
-    std::vector<elements> matrix_el;
-    std::vector<T> rows;
-    std::vector<T> columns;
+    const std::size_t hight, width;
+    std::vector<T> matrix_el;
+    std::vector<std::size_t> rows;
+    std::vector<std::size_t> columns;
 
 public:
 
@@ -35,7 +32,7 @@ public:
         
         \param vec Vector of values
     */
-   Construct_CSR(const std::set<Triplet<elements>> &data, const T &h, const T &w) : hight(H), width(w) {
+   Construct_CSR(const std::set<Triplet<elements>> &data, const std::size_t &H, const std::size_t &W) : hight(H), width(W) {
 
     values.resize(data.size());
     columns.resize(data.size());
