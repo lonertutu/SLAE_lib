@@ -63,13 +63,14 @@ public:
 
     //Оператор получения элемента по i и j координате в матрице
 
-    const T operator()(std::size_t const i, std::size_t const j) {
+    T operator()(std::size_t const i, std::size_t const j) const {
         std::size_t pass = rows[i];
         std::size_t counting = rows[i+1] - pass;
         for (std::size_t p = pass; p < pass+counting; ++p) {
             if (columns[p]==j) {
                 return matrix_el[p];
             }
+            return 0;
         }
     }
 };
