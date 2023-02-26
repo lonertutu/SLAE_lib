@@ -38,8 +38,8 @@ public:
         rows.resize(H + 1, 0);
         columns.resize(data.size());
 
-        unsigned int counter = 0;
-        unsigned int actual_row = 0;
+        uint32_t counter = 0;
+        uint32_t actual_row = 0;
 
         auto val = data.begin();
         for (std::size_t n = 0; n < data.size(); ++n) {
@@ -54,6 +54,7 @@ public:
             val = std::next(val);
 
         }
+        //переписать через range base for
 
         for(++actual_row; actual_row <= hight; ++actual_row){
             rows[actual_row] = data.size();
