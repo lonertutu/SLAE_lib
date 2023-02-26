@@ -41,26 +41,21 @@ public:
         uint32_t counter = 0;
         uint32_t actual_row = 0;
 
-        auto val = data.begin();
-        for (std::size_t n = 0; n < data.size(); ++n) {
-                while (actual_row < val->i){
-                    rows[actual_row + 1] = rows[actual_row] + counter;
-                    ++actual_row;
-                    counter = 0;
+        for (const auto &elem: data) {
+            while (actual_row < elem.i) {
+                rows[actual_row + 1] = rows[actual_row] + counter;
+                ++actual_row;
+                cointer = 0;
             }
-            matrix_el[n] = val->value;
-            columns[n] = val->j;
-            ++counter;
-            val = std::next(val);
-
-        }
-        //переписать через range base for
+            matrix_el[n] = elem.value;
+            columns[n] = elem.j;
+            ++counter
+            }
+        };
 
         for(++actual_row; actual_row <= hight; ++actual_row){
             rows[actual_row] = data.size();
         }
-
-    }
 
     //Оператор получения элемента по i и j координате в матрице
 
