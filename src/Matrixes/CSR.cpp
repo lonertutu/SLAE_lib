@@ -41,28 +41,29 @@ public:
         uint32_t counter = 0;
         uint32_t actual_row = 0;
 
-        for (const auto &elem: data) {
+        for (uint32_t n = 0; const auto& elem: data) {
             while (actual_row < elem.i) {
                 rows[actual_row + 1] = rows[actual_row] + counter;
                 ++actual_row;
-                cointer = 0;
+                counter = 0;
             }
-            matrix_el[n] = elem.value;
+            matrix_el[n] = elem.matrix_element;
             columns[n] = elem.j;
-            ++counter
+            ++counter;
+            ++n;
             }
-        };
 
         for(++actual_row; actual_row <= hight; ++actual_row){
             rows[actual_row] = data.size();
         }
+    };
 
     //Оператор получения элемента по i и j координате в матрице
 
     T operator()(std::size_t const i, std::size_t const j) const {
         std::size_t pass = rows[i];
         std::size_t counting = rows[i+1] - pass;
-        for (std::size_t p = pass; p < pass+counting; ++p) {
+        for (std::size_t p = pass; p < pass + counting; ++p) {
             if (columns[p]==j) {
                 return matrix_el[p];
             }
