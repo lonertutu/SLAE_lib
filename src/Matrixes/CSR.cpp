@@ -32,7 +32,7 @@ public:
         
         \param vec Vector of values
     */
-    Construct_CSR(const std::set<Triplet<T>> &data, const std::size_t &H, const std::size_t &W) : hight(H), width(W) {
+    CSR(const std::set<Triplet<T>> &data, const std::size_t &H, const std::size_t &W) : hight(H), width(W) {
 
         matrix_el.resize(data.size());
         rows.resize(H + 1, 0);
@@ -42,16 +42,16 @@ public:
         unsigned int actual_row = 0;
 
         auto val = data.begin();
-        for (std::size_t n = 0; n < data.size(); ++n){
-            while (actual_row < val->i){
-                rows[actual_row + 1] = rows[actual_row] + counter;
-                ++actual_row;
-                counter = 0;
+        for (std::size_t n = 0; n < data.size(); ++n) {
+                while (actual_row < val->i){
+                    rows[actual_row + 1] = rows[actual_row] + counter;
+                    ++actual_row;
+                    counter = 0;
             }
-        matrix_el[n] = val->value;
-        columns[n] = val->j;
-        ++counter;
-        val = std::next(val);
+            matrix_el[n] = val->value;
+            columns[n] = val->j;
+            ++counter;
+            val = std::next(val);
 
         }
 
