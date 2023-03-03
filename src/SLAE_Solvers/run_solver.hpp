@@ -1,6 +1,6 @@
 #pragma once
 
-#include "/home/lonertutu/SLAE/SLAE_lib/src/Matrixes/tridiagonal_matrix.hpp"
+#include "../Matrixes/tridiagonal_matrix.hpp"
 
 namespace SLAE::Solver{
 

@@ -1,5 +1,7 @@
 #include "run_solver.hpp"
+#include "../Matrixes/tridiagonal_matrix.hpp"
 #include <iostream>
+#include <vector>
 
 
 namespace SLAE::Solver

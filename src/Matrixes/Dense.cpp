@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "Dense.h"
+#include "Dense.hpp"
 
 //template<typename T>
 //Dense_matrix<T>::Dense_matrix(uint32_t rows, uint32_t columns, T* matrix_el)
