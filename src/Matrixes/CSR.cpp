@@ -70,6 +70,18 @@ public:
             return 0;
         }
     }
+
+    std::vector<T> operator*(const std::vector<T> &b) const {
+        std::vector<T> sol_vec(hight);
+        for (size_t i = 0; i < hight; ++i) {
+            for (size_t j = rows[i]; j < rows[i+1]; ++j) {
+                sol_vec[i] += matrix_el[i] * b[columns[j]];
+            }
+
+        }
+        return sol_vec;
+
+    }
 };
 
 //actual_row
