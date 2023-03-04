@@ -15,12 +15,12 @@ std::vector<T> Simple_Iter(const CSR<T> &A, const std::vector<T> &b, const std::
     std::vector<T> iter_x(b.size());
     std::vector<T> r(b.size);
 
-    r = b - A*x;
+    r = b - A*init_vec;
     while(Norm(r) > tolerance) {
         if (parametr != 0) {
                 init_vec = init_vec - parametr*r;
         }
         //обновляем невязку
-        r = b - A*iter_x;
+        r = b - A*init_vec;
     }
 }
