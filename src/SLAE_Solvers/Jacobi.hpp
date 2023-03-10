@@ -34,15 +34,16 @@ std::vector<T> Jacobi(const CSR<T> &A, const std::vector<T> &b, std::vector<T> i
                 if (i != A.get_column(j)) {
                     result += A(i, A.get_column(j)) * x[A.get_column(j)];
                 }
-                iter_x[i] = ((b[i] - result) / A(i, i));
             }
-            std::cout<< iter_x[i] << '\n';
+            iter_x[i] = ((b[i] - result) / A(i, i));
+            std::cout<< log(Norm(r)) << '\n';
+            //std::cout << A(i, i);
         }
         //обновляем вектор приближения к решению x
         x = iter_x;
         //обновляем невязку
         r = b - A * x;
-        //data << Norm(r);
+        data << Norm(r);
     }
     return x;
 }

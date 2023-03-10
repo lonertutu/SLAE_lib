@@ -66,12 +66,11 @@ public:
     };
 
     [[nodiscard]] double get_row(uint32_t i) const {
-
-        return rows[i];
+            return rows[i];
     };
 
     [[nodiscard]] double get_column(uint32_t i) const {
-        return columns[i];
+            return columns[i];
     };
     //Оператор получения элемента по i и j координате в матрице
 

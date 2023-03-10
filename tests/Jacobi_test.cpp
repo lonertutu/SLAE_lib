@@ -5,9 +5,9 @@
 #include "gtest/gtest.h"
 
 TEST(TEST_Jacobi, Jacobi_first) {
-    std::set<Triplet<double>> data{{0, 0, 12.}, {0, 1, 17.}, {0, 2, 3.},
-                                   {1, 0, 17.}, {1, 1, 15825.}, {1, 2, 28.},
-                                   {2, 0, 3.}, {2, 1, 28.}, {2, 2, 238.}};
+    std::set<Triplet<double>> data{{0, 0, 2.}, {0, 1, 1.}, {0, 2, 3.},
+                                   {1, 0, 1.}, {1, 1, 30.}, {1, 2, 2.},
+                                   {2, 0, 3.}, {2, 1, 2.}, {2, 2, 2.}};
     CSR<double> matrix(3, 3, data);
     std::vector<double> b(3);
     b[0] = 1.;
