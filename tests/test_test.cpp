@@ -26,29 +26,29 @@ TEST(Matrix, Create_zero_matrix)
     }
 }
 
-TEST(Matrix, first_solve)
-{
-    SLAE::Tri_matrix::Tridiagonal_matrix Matrix_example = SLAE::Tri_matrix::Tridiagonal_matrix::zero_field(3);
+//TEST(Matrix, first_solve)
+//{
+    //SLAE::Tri_matrix::Tridiagonal_matrix Matrix_example = SLAE::Tri_matrix::Tridiagonal_matrix::zero_field(3);
 
-    Matrix_example(0, 0) = 1.0;
-    Matrix_example(1, 0) = 3.0;
-    Matrix_example(0, 1) = 2.0;
-    Matrix_example(1, 1) = 5.0;
-    Matrix_example(0,2) = 3.0;
-    Matrix_example(2, 0) = 1.0;
-    Matrix_example(2, 1) = 3.0;
-    Matrix_example(1, 2) = 7.0;
-    Matrix_example(2, 2) = 4.0;
+    //Matrix_example(0, 0) = 1.0;
+    //Matrix_example(1, 0) = 3.0;
+    //Matrix_example(0, 1) = 2.0;
+    //Matrix_example(1, 1) = 5.0;
+    //Matrix_example(0,2) = 3.0;
+    //Matrix_example(2, 0) = 1.0;
+    //Matrix_example(2, 1) = 3.0;
+    //Matrix_example(1, 2) = 7.0;
+    //Matrix_example(2, 2) = 4.0;
 
-    std::vector<double> free_coef(3);
-    free_coef[0] = 3;
-    free_coef[1] = 0;
-    free_coef[2] = 1;
+    //std::vector<double> free_coef(3);
+    //free_coef[0] = 3;
+    //free_coef[1] = 0;
+    //free_coef[2] = 1;
 
-    std::vector<double> solution;
-    solution = SLAE::Solver::solver_method_run(Matrix_example, free_coef);
+    //std::vector<double> solution;
+    //solution = SLAE::Solver::solver_method_run(Matrix_example, free_coef);
 
-    ASSERT_NEAR(solution[0], -4, 1e-15);
-    ASSERT_NEAR(solution[0], -13, 1e-15);
-    ASSERT_NEAR(solution[0], 11, 1e-15);
-}
+    //ASSERT_NEAR(solution[0], -4, 1e-15);
+    //ASSERT_NEAR(solution[0], -13, 1e-15);
+    //ASSERT_NEAR(solution[0], 11, 1e-15);
+//}

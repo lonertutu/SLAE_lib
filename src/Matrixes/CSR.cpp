@@ -1,13 +1,18 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <cassert>
 
 template <typename T>
 struct Triplet {
-
-std::size_t i;
-std::size_t j;
+    uint32_t i;
+    uint32_t j;
 T matrix_element;
+bool operator<(Triplet<T> const & rgh) const{
+    bool res;
+    i == rgh.i ? res = j < rgh.j : res = i < rgh.i;
+    return res;
+    }
 };
 
 /*!
@@ -20,10 +25,10 @@ template <typename T>
 class CSR {
 
 private:
-    const std::size_t hight, width;
+    const uint32_t hight, width;
     std::vector<T> matrix_el;
-    std::vector<std::size_t> rows;
-    std::vector<std::size_t> columns;
+    std::vector<uint32_t> rows;
+    std::vector<uint32_t> columns;
 
 public:
 
@@ -32,7 +37,8 @@ public:
         
         \param vec Vector of values
     */
-    CSR(const std::set<Triplet<T>> &data, const std::size_t &H, const std::size_t &W) : hight(H), width(W) {
+    CSR(const uint32_t&H, const uint32_t &W, const std::set<Triplet<T>>& data) : hight(H), width(W) {
+
 
         matrix_el.resize(data.size());
         rows.resize(H + 1, 0);
@@ -41,6 +47,7 @@ public:
         uint32_t counter = 0;
         uint32_t actual_row = 0;
 
+        rows[0] = 0;
         for (uint32_t n = 0; const auto& elem: data) {
             while (actual_row < elem.i) {
                 rows[actual_row + 1] = rows[actual_row] + counter;
@@ -53,34 +60,48 @@ public:
             ++n;
             }
 
-        for(++actual_row; actual_row <= hight; ++actual_row){
+        for(++actual_row; actual_row <= hight; ++actual_row) {
             rows[actual_row] = data.size();
         }
     };
 
+    [[nodiscard]] double get_row(uint32_t i) const {
+
+        return rows[i];
+    };
+
+    [[nodiscard]] double get_column(uint32_t i) const {
+        return columns[i];
+    };
     //Оператор получения элемента по i и j координате в матрице
 
-    T operator()(std::size_t const i, std::size_t const j) const {
-        std::size_t pass = rows[i];
-        std::size_t counting = rows[i+1] - pass;
-        for (std::size_t p = pass; p < pass + counting; ++p) {
-            if (columns[p]==j) {
-                return matrix_el[p];
-            }
-            return 0;
+    const T operator()(uint32_t const i, uint32_t const j) const {
+        for (uint32_t p = rows[i]; p < rows[i+1];  ++p) {
+            if (columns[p] == j) return matrix_el[p];
         }
+        return 0;
+
     }
 
+    // оператор умножения матрицы на вектор
     std::vector<T> operator*(const std::vector<T> &b) const {
-        std::vector<T> sol_vec(hight);
-        for (size_t i = 0; i < hight; ++i) {
-            for (size_t j = rows[i]; j < rows[i+1]; ++j) {
+        assert(b.size() == width);
+
+        std::vector<T> sol_vec(b.size());
+        for (uint32_t i = 0; i < width; ++i) {
+            for (uint32_t j = rows[i]; j < rows[i+1]; ++j) {
                 sol_vec[i] += matrix_el[i] * b[columns[j]];
             }
-
         }
         return sol_vec;
+    }
 
+    [[nodiscard]] uint32_t sizeHight() const {
+        return hight;
+    }
+
+    [[nodiscard]] uint32_t sizeWidth() const {
+        return width;
     }
 };
 

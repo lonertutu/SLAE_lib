@@ -5,36 +5,44 @@
 
 #include "../Matrixes/CSR.cpp"
 #include "../Tools/Norm.hpp"
+#include "../Tools/Overloads.hpp"
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 
 //init_vec - приближеный вектор решений
 template <typename T>
-std::vector<T> Jacobi(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec, const T &tolerance) {
+std::vector<T> Jacobi(const CSR<T> &A, const std::vector<T> &b, std::vector<T> init_vec, T tolerance) {
 
-    auto result = static_cast<T>(0);
-    std::vector<T> x = init_vec;
-    std::vector<T> iter_x(b.size());
-    std::vector<T> r(b.size);
+
+    std::vector<T> x(init_vec);
+    std::vector<T> iter_x(x);
+    std::vector<T> r(b.size());
 
     //считаем невязку
-    r = b - A*x;
+    r = b - A * x;
+
+    std::ofstream data;
+    data.open("Jacobi_data");
 
     //итерации останавливаются, когда невязка становится меньше чем заданное число tolerance
-    while(Norm(r) > tolerance) {
+    while (Norm(r) > tolerance) {
         for (uint32_t i = 0; i < b.size(); ++i) {
-            for (uint32_t j = A.rows[i]; j < A.rows[i + 1]; ++j) {
-                if (i != A.columns[j]) result += A.matrix_el[j] * x[A.columns[j]];
+            double result = 0;
+            for (uint32_t j = A.get_row(i); j < A.get_row(i + 1); ++j) {
+                if (i != A.get_column(j)) {
+                    result += A(i, A.get_column(j)) * x[A.get_column(j)];
+                }
+                iter_x[i] = ((b[i] - result) / A(i, i));
             }
-            iter_x[i] = (1 / A(i, i))*(b[i] - result);
+            std::cout<< iter_x[i] << '\n';
         }
-
         //обновляем вектор приближения к решению x
         x = iter_x;
         //обновляем невязку
-        r = b - A*iter_x;
+        r = b - A * x;
+        //data << Norm(r);
     }
     return x;
-
-
 }

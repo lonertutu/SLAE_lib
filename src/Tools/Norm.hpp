@@ -7,14 +7,9 @@
 #include <vector>
 
 template<typename T>
-struct Norm {
-    double Euclid_Norm(const std::vector<T>& vec);
-};
-
-template<>
-double Norm<double>::Euclid_Norm(const std::vector<double> &vec) {
-    double vec_norm = 0.;
-    for(double i : vec)
+double Norm(const std::vector<T> &vec) {
+    T vec_norm = 0.;
+    for(auto i : vec)
         vec_norm += i * i;
     return sqrt(vec_norm);
 }
