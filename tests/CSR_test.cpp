@@ -50,6 +50,17 @@ TEST(TEST_CSR, CSR_fourth) {
     std::cout << matrix.get_column(0);
 }
 
+TEST(A, b) {
+    std::set<Triplet<double>> data{{0, 0, 2.}, {0, 2, 1.},
+                                   {1, 1, 1.}, {2, 2, 1.}};
+    CSR<double> matrix(3, 3, data);
+    std::vector<double> x{-1, 2, 3};
+    auto Ax = matrix * x;
+    ASSERT_DOUBLE_EQ(Ax[0], 1);
+    ASSERT_DOUBLE_EQ(Ax[1], 2);
+    ASSERT_DOUBLE_EQ(Ax[2], 3);
+}
+
 int main(int argc, char** argv){
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

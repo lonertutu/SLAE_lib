@@ -24,7 +24,7 @@ std::vector<T> Jacobi(const CSR<T> &A, const std::vector<T> &b, std::vector<T> i
     r = b - A * x;
 
     std::ofstream data;
-    data.open("Jacobi_data");
+    data.open("../Task1/Jacobi_data.txt");
 
     //итерации останавливаются, когда невязка становится меньше чем заданное число tolerance
     while (Norm(r) > tolerance) {
@@ -36,14 +36,15 @@ std::vector<T> Jacobi(const CSR<T> &A, const std::vector<T> &b, std::vector<T> i
                 }
             }
             iter_x[i] = ((b[i] - result) / A(i, i));
-            std::cout<< log(Norm(r)) << '\n';
-            //std::cout << A(i, i);
         }
         //обновляем вектор приближения к решению x
         x = iter_x;
         //обновляем невязку
         r = b - A * x;
-        data << Norm(r);
+
+        if (data.is_open())
+            data << Norm(r) <<std::endl;
     }
+    data.close();
     return x;
 }

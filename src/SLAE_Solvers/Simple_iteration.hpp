@@ -6,7 +6,11 @@
 
 #include "../Matrixes/CSR.cpp"
 #include "../Tools/Norm.hpp"
+#include "../Tools/Overloads.hpp"
+#include <vector>
+#include <iostream>
 #include <fstream>
+
 
 
 std::ofstream out;          // поток для записи
@@ -15,30 +19,24 @@ std::ofstream out;          // поток для записи
 template<typename T>
 std::vector<T> Simple_Iter(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec, const T &tolerance, const T &parametr) {
 
-    auto result = static_cast<T>(0);
     std::vector<T> x = init_vec;
-    std::vector<T> r(b.size);
-    std::vector<std::vector<T>> iteration;{}
-    uint32_t p = 0;
+    std::vector<T> r(b.size());
+    std::vector<T> iteration;
+    iteration.reserve(500);
 
-    iteration.reserve(50);
-    r = b - A*init_vec;
+    //out.open("Simple_iteration.txt");
+    r = A*x - b;
     while(Norm(r) > tolerance) {
-        if (parametr != 0) {
-                init_vec = init_vec - parametr*r;
+        if (parametr != 0.)
+                x = x - parametr*r;
+        r = b - A*x;
+        std::cout << parametr << std::endl;
 
-        }
-        else return 0;
-
-        ++p;
-        //обновляем невязку
-        r = b - A*init_vec;
-        iteration.push_back(Norm(r), p);
-        out.open("data.txt");
-        out << iteration;
-
+        iteration.push_back(Norm(r));
+        //for (uint32_t i = 0; i < iteration.size(); ++i)
+            //out << iteration[i] << std::endl;
     }
-    out.close();
-
-
+    std::cout << x[1] << " " << x[2] << " " << x[3];
+    //out.close();
+    return x;
 }

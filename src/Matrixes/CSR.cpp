@@ -89,7 +89,7 @@ public:
         std::vector<T> sol_vec(b.size());
         for (uint32_t i = 0; i < width; ++i) {
             for (uint32_t j = rows[i]; j < rows[i+1]; ++j) {
-                sol_vec[i] += matrix_el[i] * b[columns[j]];
+                sol_vec[i] += matrix_el[j] * b[columns[j]];
             }
         }
         return sol_vec;
