@@ -65,12 +65,25 @@ public:
         }
     };
 
-    [[nodiscard]] double get_row(uint32_t i) const {
-            return rows[i];
+    [[nodiscard]] std::vector<uint32_t> get_rows() const {
+            return rows;
     };
 
-    [[nodiscard]] double get_column(uint32_t i) const {
-            return columns[i];
+    [[nodiscard]] std::vector<uint32_t> get_columns() const {
+            return columns;
+    };
+
+    [[nodiscard]] std::vector<T> get_elements() const {
+        return matrix_el;
+    };
+
+
+    [[nodiscard]] uint32_t get_column(uint32_t i) const {
+        return columns[i];
+    };
+
+    [[nodiscard]] uint32_t get_row(uint32_t i) const {
+        return rows[i];
     };
     //Оператор получения элемента по i и j координате в матрице
 
@@ -102,6 +115,7 @@ public:
     [[nodiscard]] uint32_t sizeWidth() const {
         return width;
     }
+
 };
 
 //actual_row

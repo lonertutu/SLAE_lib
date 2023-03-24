@@ -10,6 +10,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <cmath>
+#include <algorithm>
 
 
 
@@ -25,12 +27,12 @@ std::vector<T> Simple_Iter(const CSR<T> &A, const std::vector<T> &b, const std::
     iteration.reserve(500);
 
     //out.open("Simple_iteration.txt");
-    r = A*x - b;
+    r = abs(A*x - b);
     while(Norm(r) > tolerance) {
         if (parametr != 0.)
                 x = x - parametr*r;
-        r = b - A*x;
-        std::cout << parametr << std::endl;
+        r = abs(b - A*x);
+        std::cout << Norm(r) << std::endl;
 
         iteration.push_back(Norm(r));
         //for (uint32_t i = 0; i < iteration.size(); ++i)

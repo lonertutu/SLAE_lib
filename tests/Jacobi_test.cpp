@@ -21,5 +21,5 @@ TEST(TEST_Jacobi, Jacobi_first) {
     double tolerance = 1e-12;
     auto sol_vec = Jacobi<double>(matrix, b, init_vec, tolerance);
 
-    //std::cout << sol_vec[0] << " " << sol_vec[1] << " " << sol_vec[2];
+    std::cout << sol_vec[0] << " " << sol_vec[1] << " " << sol_vec[2];
 }
