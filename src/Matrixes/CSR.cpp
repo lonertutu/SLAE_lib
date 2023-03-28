@@ -3,6 +3,14 @@
 #include <set>
 #include <cassert>
 
+
+/*!
+    \brief Class of Triplet for CSR matrix
+
+    \param i - element row
+    \param j - element column
+    \param matrix_element
+*/
 template <typename T>
 struct Triplet {
     uint32_t i;
