@@ -8,19 +8,18 @@
 #include "../Tools/Overloads.hpp"
 #include <vector>
 #include <iostream>
-#include <fstream>
 
 
 
 template <typename T>
 std::vector<T> Gauss_Seidel(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec, T tolerance) {
 
-    std::vector<T> x(init_vec);
+    std::vector<T> x(b.size());
     std::vector<T> r(b.size());
     std::vector<T> A_elements = A.get_elements();
-
     std::vector<uint32_t> columns = A.get_columns();
     std::vector<uint32_t> rows = A.get_rows();
+
     r = b - A * x;
 
     while (Norm(r) > tolerance) {
