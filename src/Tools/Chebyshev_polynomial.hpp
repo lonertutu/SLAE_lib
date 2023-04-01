@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <vector>
-#include "cmath"
+#include <cmath>
 
 /*!
     \brief Function of solving Chebyshev polynomial
@@ -15,7 +15,7 @@
 
 */
 template <typename T>
-std::vector<T> Solutions(const uint32_t r) {
+std::vector<T> Solutions(const uint32_t r, const T lambda_min, const T lambda_max) {
 
     uint32_t n = std::pow(2, r);
     std::vector<T> roots(n);
@@ -29,8 +29,9 @@ std::vector<T> Solutions(const uint32_t r) {
         roots[k] = roots[k - 1] * cos_const  - sinB * sin_const;
         sinB = roots[k - 1] * sin_const + sinB * cos_const;
     }
-    for (uint32_t i = 0; i < n; ++i) {
-        std::cout << roots[i] << " ";
+    //Normalization
+    for (uint32_t k = 0; k < n; ++k) {
+        roots[k - 1] = 0.5*((lambda_max + lambda_min) + roots[k-1]*(lambda_max - lambda_min));
     }
     return roots;
     // написать перемешалку
