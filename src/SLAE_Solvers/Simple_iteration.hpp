@@ -7,38 +7,50 @@
 #include "../Matrixes/CSR.cpp"
 #include "../Tools/Norm.hpp"
 #include "../Tools/Overloads.hpp"
+#include "../Tools/Chebyshev_polynomial.hpp"
 #include <vector>
 #include <iostream>
-#include <fstream>
-#include <cmath>
-#include <algorithm>
 
 
 
-std::ofstream out;          // поток для записи
 
 // tau = 2/lambda_max
 template<typename T>
-std::vector<T> Simple_Iter(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec, const T &tolerance, const T &parametr) {
+std::vector<T> simpIter(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec, const T &tolerance, const T &parametr) {
 
     std::vector<T> x = init_vec;
-    std::vector<T> r(b.size());
-    std::vector<T> iteration;
-    iteration.reserve(500);
+    std::vector<T> r =  A*x - b;
+    //std::vector<T> iteration;
+    //iteration.reserve(500);
 
     //out.open("Simple_iteration.txt");
-    r = abs(A*x - b);
-    while(Norm(r) > tolerance) {
+    while(EuclidNorm(r) > tolerance) {
         if (parametr != 0.)
                 x = x - parametr*r;
-        r = abs(b - A*x);
-        std::cout << Norm(r) << std::endl;
+        r =  A*x - b;
+        //std::cout << EuclidNorm(r) << std::endl;
+        //iteration.push_back(EuclidNorm(r));
 
-        iteration.push_back(Norm(r));
-        //for (uint32_t i = 0; i < iteration.size(); ++i)
-            //out << iteration[i] << std::endl;
     }
-    std::cout << x[1] << " " << x[2] << " " << x[3];
-    //out.close();
+    return x;
+}
+
+template<typename T>
+std::vector<T> simpIter_chebBoost(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec,
+                                  const T &tolerance, const T &lambda_min, const T &lambda_max, const unsigned int n) {
+
+    std::vector<T> x = init_vec;
+    std::vector<T> r = A * x - b;
+    std::vector<T> roots = chebRoots(n, lambda_min, lambda_max);
+    for (uint32_t i = 0; i < roots.size(); ++i)
+        std::cout << roots[i] << " ";
+
+    //while(EuclidNorm(r) > tolerance) {
+    //    for (uint32_t i = 0; i < roots.size(); ++i) {
+    //        x = x - 1/roots[i]*r;
+    //        r = A*x - b;
+    //        std::cout << EuclidNorm(r) << " ";
+    //    }
+    //}
     return x;
 }

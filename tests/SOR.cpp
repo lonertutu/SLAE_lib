@@ -34,7 +34,7 @@ TEST(TEST_SOR, SOR_sec) {
     double w = 0.9;
     auto sol_vec = SOR<double>(matrix, b, tolerance, w);
 
-    std::cout << sol_vec[0] << " " << sol_vec[1] << " " << sol_vec[2];
+    //std::cout << sol_vec[0] << " " << sol_vec[1] << " " << sol_vec[2];
     ASSERT_NEAR(sol_vec[0], 0.0804084, 1e-6);
     ASSERT_NEAR(sol_vec[1], 1.94982e-05, 1e-6);
     ASSERT_NEAR(sol_vec[2], 0.0115892, 1e-6);

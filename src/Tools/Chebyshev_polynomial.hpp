@@ -11,7 +11,9 @@
 /*!
     \brief Function of solving Chebyshev polynomial
 
-    \param r - power of two
+    \param n - amount of roots
+    \param lambda_min
+    \param lambda_max
 
 */
 template <typename T>
@@ -19,7 +21,7 @@ std::vector<T> chebRoots(const uint32_t n, const T lambda_min, const T lambda_ma
     std::vector<T> roots(n);
 
     const T cos_const = std::cos(M_PI/n);
-    const T sin_const = std::sin(M_PI/n);  // Ошибка
+    const T sin_const = std::sin(M_PI/n);
     double sinB = std::sin(M_PI/(2*n));
     roots[0] = std::cos(M_PI/(2*n));
 
@@ -41,8 +43,7 @@ std::vector<T> chebRoots(const uint32_t n, const T lambda_min, const T lambda_ma
 
 */
 std::vector<unsigned int> chebRootsShake(unsigned int r) {
-    uint32_t n = std::pow(r, 2);  // не использовать pow
-    //std::vector<uint32_t> indexes(n);
+    uint32_t n = std::pow(2, r);  // не использовать pow
     std::vector<uint32_t> next(n);
     std::vector<uint32_t> indexes = {0,1};
     uint32_t order = 2;
@@ -55,5 +56,4 @@ std::vector<unsigned int> chebRootsShake(unsigned int r) {
         indexes = next;
     }
     return indexes;
-
 }

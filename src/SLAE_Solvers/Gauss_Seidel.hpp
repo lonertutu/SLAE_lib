@@ -22,7 +22,7 @@ std::vector<T> Gauss_Seidel(const CSR<T> &A, const std::vector<T> &b, const std:
 
     r = b - A * x;
 
-    while (Norm(r) > tolerance) {
+    while (EuclidNorm(r) > tolerance) {
         for (uint32_t i = 0; i < b.size(); ++i) {
             x[i] = b[i];
             double diagonal;
@@ -36,7 +36,7 @@ std::vector<T> Gauss_Seidel(const CSR<T> &A, const std::vector<T> &b, const std:
             x[i] = x[i] /diagonal;
         }
         r = b - A * x;
-        std::cout << Norm(r) << std::endl;
+        std::cout << EuclidNorm(r) << std::endl;
     }
     return x;
 }

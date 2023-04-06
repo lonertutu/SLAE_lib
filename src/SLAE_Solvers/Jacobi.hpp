@@ -27,7 +27,7 @@ std::vector<T> Jacobi(const CSR<T> &A, const std::vector<T> &b, std::vector<T> i
     data.open("../Task1/Jacobi_data.txt");
 
     //итерации останавливаются, когда невязка становится меньше чем заданное число tolerance
-    while (Norm(r) > tolerance) {
+    while (EuclidNorm(r) > tolerance) {
         for (uint32_t i = 0; i < b.size(); ++i) {
             double result = 0;
             for (uint32_t j = A.get_row(i); j < A.get_row(i + 1); ++j) {
@@ -43,7 +43,7 @@ std::vector<T> Jacobi(const CSR<T> &A, const std::vector<T> &b, std::vector<T> i
         r = b - A * x;
 
         if (data.is_open())
-            data << Norm(r) <<std::endl;
+            data << EuclidNorm(r) << std::endl;
     }
     data.close();
     return x;

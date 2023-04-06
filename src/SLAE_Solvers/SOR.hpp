@@ -26,7 +26,7 @@ std::vector<T> SOR(const CSR<T> &A, const std::vector<T> &b, T tolerance, T w) {
 
     r = b - A * x;
 
-    while (Norm(r) > tolerance) {
+    while (EuclidNorm(r) > tolerance) {
         for (uint32_t i = 0; i < b.size(); ++i) {
             T interim = x[i];
             T diagonal;
@@ -42,7 +42,7 @@ std::vector<T> SOR(const CSR<T> &A, const std::vector<T> &b, T tolerance, T w) {
             x[i] += (1-w)*interim;
         }
         r = b - A * x;
-        //std::cout << Norm(r) << std::endl;
+        //std::cout << EuclidNorm(r) << std::endl;
     }
     return x;
 }
