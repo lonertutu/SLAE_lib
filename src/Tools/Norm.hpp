@@ -16,5 +16,5 @@ T EuclidNorm(const std::vector<T> &vec) {
 
 template<typename T>
 T InfNorm(const std::vector<T> &vec) {
-    //
+    T vec_norm = 0.;
 }
