@@ -20,17 +20,17 @@ template <typename T>
 std::vector<T> chebRoots(const uint32_t n, const T lambda_min, const T lambda_max) {
     std::vector<T> roots(n);
 
-    const T cos_const = std::cos(M_PI/n);
-    const T sin_const = std::sin(M_PI/n);
-    double sinB = std::sin(M_PI/(2*n));
-    roots[0] = std::cos(M_PI/(2*n));
+    const double cos_const = std::cos(M_PI/n);
+    const double sin_const = std::sin(M_PI/n);
+    double sinB = std::sin(M_PI / (2 * n));
+    roots[0] = std::cos(M_PI / (2 * n));
 
     for (uint32_t k = 1; k < n; ++k) {
         roots[k] = roots[k - 1] * cos_const  - sinB * sin_const;
         sinB = roots[k - 1] * sin_const + sinB * cos_const;
     }
     //Normalization
-    for (uint32_t k = 0; k < n; ++k) {
+    for (uint32_t k = 1; k < n; ++k) {
         roots[k - 1] = 0.5*((lambda_max + lambda_min) + roots[k-1]*(lambda_max - lambda_min));
     }
     return roots;
@@ -42,7 +42,8 @@ std::vector<T> chebRoots(const uint32_t n, const T lambda_min, const T lambda_ma
     \param r - power of two
 
 */
-std::vector<unsigned int> chebRootsShake(unsigned int r) {
+
+inline std::vector<unsigned int> chebRootsShake(unsigned int r) {
     uint32_t n = std::pow(2, r);  // не использовать pow
     std::vector<uint32_t> next(n);
     std::vector<uint32_t> indexes = {0,1};

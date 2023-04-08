@@ -34,7 +34,7 @@ std::vector<T> conjGrad(const CSR<T> &A, const std::vector<T> &b, const std::vec
         x = x - alpha * d;
         r = A * x - b;
         d = r + (r * r) / prev * d;
-        std::cout << EuclidNorm(r) << " ";
+//        std::cout << EuclidNorm(r) << " ";
     }
     return x;
 }
