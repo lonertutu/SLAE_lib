@@ -39,3 +39,25 @@ TEST(TEST_SOR, SOR_sec) {
     ASSERT_NEAR(sol_vec[1], 1.94982e-05, 1e-6);
     ASSERT_NEAR(sol_vec[2], 0.0115892, 1e-6);
 }
+
+TEST(TEST_SOR, task_test) {
+
+    std::set<Triplet<double>> values;
+    std::vector<double> b(289, 4);
+    std::vector<double> init_vec(289, 0);
+
+    for (uint32_t i = 0; i < 289; ++i) {
+        values.insert(Triplet<double>{i, i, 38});
+    }
+    for (uint32_t i = 0; i < 144; ++i) {
+        values.insert(Triplet<double>{i, i + 144, 8});
+        values.insert(Triplet<double>{i + 144, i, 8});
+        values.insert(Triplet<double>{i, i + 1, 8});
+        values.insert(Triplet<double>{i + 1, i, 8});
+    }
+    CSR<double> matrix_iter(289, 289, values);
+    double tolerance = 1.07e-13;
+    double w = 0.5;
+
+    auto solution = SOR<double>(matrix_iter, b, tolerance, w);
+}

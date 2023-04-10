@@ -1,7 +1,8 @@
 //
 // Created by lonertutu on 06.04.23.
 //
-#pragma once
+#ifndef SLAE_LIB_Gradient_descent_HPP
+#define SLAE_LIB_Gradient_descent_HPP
 
 #include "../Matrixes/CSR.cpp"
 #include "../Tools/Norm.hpp"
@@ -24,12 +25,17 @@ std::vector<T> gradDescent(const CSR<T> &A, const std::vector<T> &b, const std::
 
     std::vector<T> x = init_vec;
     std::vector<T> r =  A*x - b;
+    std::vector<T> h_min = {1, 0, 0, 0};
+    std::vector<T> h_max = {0, 0, 0, 1};
     T alpha;
 
     while(EuclidNorm(r) > tolerance) {
         alpha = (r * r) / (r * (A * r));
         x = x - alpha * r;
         r =  A*x - b;
+        std::cout <<  x[3] * h_max[3]<< ", ";
     }
     return x;
 }
+
+#endif

@@ -42,7 +42,7 @@ std::vector<T> SOR(const CSR<T> &A, const std::vector<T> &b, T tolerance, T w) {
             x[i] += (1-w)*interim;
         }
         r = b - A * x;
-        //std::cout << EuclidNorm(r) << std::endl;
+        std::cout << std::log(EuclidNorm(r)) << ", ";
     }
     return x;
 }

@@ -39,3 +39,18 @@ TEST(GD, second_test) {
     ASSERT_NEAR(solution[1], .222841, 1e-5);
     ASSERT_NEAR(solution[2], -0.178273, 1e-5);
 }
+
+TEST(GD, task_test) {
+    std::set<Triplet<double>> data1{{0, 0, 8.}, {0, 1, 0.}, {0, 2, 0.}, {0, 3, 0.},
+                                    {1, 0, 0.}, {1, 1, 9.0}, {1, 2, 0.}, {1, 3, 0.},
+                                    {2, 0, 0.}, {2, 1, 0.}, {2, 2, 10.}, {2, 3, 0.},
+                                    {3, 0, 0.}, {3, 1, 0.}, {3, 2, 0.}, {3, 3, 12.}};
+    CSR<double> matrix_iter(4, 4, data1);
+
+    double tolerance = 1e-13;
+    std::vector<double> b = {3.0, 3.0, 3.0, 3.0};
+    std::vector<double> init_vec = {0., 0., 0., 0.};
+
+    auto solution = gradDescent<double>(matrix_iter, b, init_vec, tolerance);
+    std::cout << solution[0] << " " << solution[1] << " " << solution[2] << " " << solution[3];
+}
