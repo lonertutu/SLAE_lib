@@ -50,7 +50,7 @@ TEST(TEST_CSR, CSR_fourth) {
     std::cout << matrix.get_column(0);
 }
 
-TEST(A, b) {
+TEST(TEST_CSR, CSR_fifth) {
     std::set<Triplet<double>> data{{0, 0, 2.}, {0, 2, 1.},
                                    {1, 1, 1.}, {2, 2, 1.}};
     CSR<double> matrix(3, 3, data);
@@ -59,6 +59,18 @@ TEST(A, b) {
     ASSERT_DOUBLE_EQ(Ax[0], 1);
     ASSERT_DOUBLE_EQ(Ax[1], 2);
     ASSERT_DOUBLE_EQ(Ax[2], 3);
+}
+
+//Проверка на транспонирование матрицы
+TEST(TEST_CSR, CSR_sixth) {
+    std::vector<double> els = {20., 40., 3., 1.4, 1, 99};
+    std::vector<uint32_t> c = {0, 1, 3, 2, 1, 3};
+    std::vector<uint32_t> r = {0, 3, 4, 6};
+    CSR<double> matrix(els, c, r, 3, 4);
+    auto matrixT = matrix.transpose();
+    for (int i = 0; i < matrix.sizeWidth(); i++)
+        for (int j = 0; j < matrix.sizeHight(); j++)
+            ASSERT_NEAR(matrix(i, j), matrixT(j, i), 1e-10);
 }
 
 int main(int argc, char** argv){

@@ -7,3 +7,4 @@ target_include_directories(test PUBLIC ${gtest_SOURCE_DIR} ${gtest_SOURCE_DIR}/i
 include_directories(../../SLAE_lib)
 target_link_libraries(test SLAE_lib GTest::gtest GTest::gtest_main)
 add_test(NAME test COMMAND test)
+#TODO write globe recurse

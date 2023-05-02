@@ -27,8 +27,6 @@ std::vector<T> conjGrad(const CSR<T> &A, const std::vector<T> &b, const std::vec
     std::vector<T> d = r;
     T alpha;
     T prev;
-    std::vector<T> h_min = {1, 0, 0, 0};
-    std::vector<T> h_max = {0, 0, 0, 1};
 
     while (EuclidNorm(r) > tolerance) {
         prev = (d * r);
@@ -36,7 +34,7 @@ std::vector<T> conjGrad(const CSR<T> &A, const std::vector<T> &b, const std::vec
         x = x - alpha * d;
         r = A * x - b;
         d = r + (r * r) / prev * d;
-        std::cout <<  x[0] * h_min[0]<< ", ";
+        //std::cout <<  x[0] * h_min[0]<< ", ";
     }
     return x;
 }
