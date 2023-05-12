@@ -24,8 +24,7 @@ template <typename T>
 std::vector<T> BiCG(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec, const T &tolerance) {
 
     std::vector<T> x = init_vec;
-    std::vector<T> r = A * x - b; //минус исправить
-    std::vector<T> p = r;
+    std::vector<T> r = A * x - b;
     std::vector<T> rtilde = r;
     std::vector<T> ptilde = r;
     std::vector<T> q, qtilde;
