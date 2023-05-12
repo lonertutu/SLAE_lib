@@ -51,5 +51,4 @@ std::vector<T> BiCG(const CSR<T> &A, const std::vector<T> &b, const std::vector<
     }
     return x;
 }
-//TODO write enum with flags сошёлся или нет
 #endif //SLAE_LIB_BICG_HPP
