@@ -26,6 +26,16 @@ std::vector<T> operator-(const std::vector<T> &a, const std::vector<T> &b) {
     return sol_vec;
 }
 
+//template<typename T>
+//const std::vector<T>& operator--(const std::vector<T> &a, const std::vector<T> &b) {
+//    std::vector<T> sol_vec;
+//    sol_vec.resize(a.size());
+//
+//    for (uint32_t i = 0; i < a.size(); ++i)
+//        a[i] -= b[i];
+//    return *a;
+//}
+
 template<typename T>
 std::vector<T> operator*(const std::vector<T> &a, const T number) {
     std::vector<T> sol_vec(a.size());
@@ -43,7 +53,6 @@ std::vector<T> operator*(const T number, const std::vector<T>& a) {
 template<typename T>
 T operator*(const std::vector<T>& a, const std::vector<T>& b) {
     T sol_vec = 0;
-
     for (uint32_t i = 0; i < a.size(); ++i)
         sol_vec += a[i] * b[i];
     return sol_vec;

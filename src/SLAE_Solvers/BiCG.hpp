@@ -8,40 +8,48 @@
 #include "../Matrixes/CSR.cpp"
 #include "../Tools/Norm.hpp"
 #include "../Tools/Overloads.hpp"
-#include <vector>
-#include <iostream>
+
 
 /*!
-    \brief Function of finding a solution using the conjugate gradients method
-           With alpha - argmin of the functional
+    \brief Function of finding a solution using the biconjugate gradients method
 
     \param A - sparse matrix
     \param b - free coefficients column
+    \param init_vec - vector of initial approximation to the solution
     \param tolerance - accuracy for residual estimation
 
 */
 
 template <typename T>
-std::vector<T> BiCG(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec, T tolerance, T w) {
+std::vector<T> BiCG(const CSR<T> &A, const std::vector<T> &b, const std::vector<T> &init_vec, const T &tolerance) {
 
     std::vector<T> x = init_vec;
-    std::vector<T> r = A * x - b;
+    std::vector<T> r = A * x - b; //минус исправить
     std::vector<T> p = r;
-    std::vector<T> rk = r;
-    std::vector<T> pk = r;
-    std::vector<T> q = b.size();
-    std::vector<T> teta = b.size();
+    std::vector<T> rtilde = r;
+    std::vector<T> ptilde = r;
+    std::vector<T> q, qtilde;
+    T rho, tmp;
+    T beta, alpha;
 
-    std::vector<T> qo = r*r/(r*A*p);
+    auto AT = A.transpose();
+    rho = r * rtilde;
+    tmp = rho;
 
-    while (EuclidNorm(r) > tolerance && r*r != 0) {
-        prev = (d * r);
-        alpha = prev / (d * (A * d));
-        x = x - alpha * d;
-        r = A * x - b;
-        d = r + (r * r) / prev * d;
-        //std::cout <<  x[0] * h_min[0]<< ", ";
+    while (EuclidNorm(r) > tolerance && rho  != 0) {
+        beta = rho / tmp;
+        p = r + beta * p;
+        ptilde = rtilde + beta * ptilde;
+        q = A * p;
+        qtilde = AT * ptilde;
+        alpha = rho / (ptilde * q);
+        x = x - alpha * p;
+        r = r - alpha * q;
+        rtilde = rtilde - alpha * qtilde;
+        tmp = rho;
+        rho = r * rtilde;
     }
+    return x;
 }
-
+//TODO write enum with flags сошёлся или нет
 #endif //SLAE_LIB_BICG_HPP
