@@ -25,6 +25,7 @@ std::vector<T> BiCG(const CSR<T> &A, const std::vector<T> &b, const std::vector<
 
     std::vector<T> x = init_vec;
     std::vector<T> r = A * x - b;
+    std::vector<T> p = r;
     std::vector<T> rtilde = r;
     std::vector<T> ptilde = r;
     std::vector<T> q, qtilde;

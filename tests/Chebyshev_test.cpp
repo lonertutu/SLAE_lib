@@ -26,3 +26,21 @@ for (uint32_t i = 0; i < 8; ++i) {
     ASSERT_EQ(ro[6], 2);
     ASSERT_EQ(ro[7], 5);
 }
+
+
+TEST(TEST_Cheb, Cheb_second) {
+    double lambda_min = 2.25;
+    double lambda_max = 15.88;
+    std::vector<double> ro = chebRoots(32, lambda_min, lambda_max);
+    for (double i : ro)
+        std::cout << i << "   ";
+        std::cout << std::endl;
+
+// перемешивание только первых 8 корней
+    for (uint32_t i = 0; i < 8; ++i) {
+        ro[i] = chebRootsShake(3)[i];
+    }
+    for (double i : ro)
+        std::cout << i << "   ";
+
+}

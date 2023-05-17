@@ -21,29 +21,38 @@ public:
         \param H, W - matrix size
         \param data - triplets with matrix data
     */
+
+    DenseMatrix(const uint32_t &H, const uint32_t &W) : hight(H), width(W) {
+        matrix_els.resize(hight * width);
+    };
+
     DenseMatrix(const uint32_t &H, const uint32_t &W, const std::set<Triplet<T>>& data) : hight(H), width(W) {
-        matrix_els.resize(H*W);
-        for (auto p : data) matrix_els[p.i*W + p.j] = p.matrix_element;
-    }
+        matrix_els.resize(hight * width);
+        for (auto p : data) matrix_els[p.i*width + p.j] = p.matrix_element;
+    };
 
 
-    T operator()(const uint32_t &i, const uint32_t &j) {
+    T& operator()(const uint32_t& i, const uint32_t& j) {
         return matrix_els[i * width + j];
     };
 
-    void fill_col(const std::vector<T> &col, int p) {
-        for(int i = 0; i < sizeHight(); ++i)
+    const T& operator()(const uint32_t& i, const uint32_t& j) const {
+        return matrix_els[i * width + j];
+    };
+
+    void fill_col(const std::vector<T> &col, uint32_t p) {
+        for(uint32_t i = 0; i < sizeHight(); ++i)
             matrix_els[i * width + p] = col[i];
     }
 
-    void fill_row(const std::vector<T> &row, int p) {
-        for(int i = 0; i < sizeWidth(); ++i)
+    void fill_row(const std::vector<T> &row, uint32_t p) {
+        for(uint32_t i = 0; i < sizeWidth(); ++i)
             matrix_els[i * hight + p] = row[i];
     }
 
 
 
-    [[nodiscard]] std::vector<uint32_t> get_row(uint32_t i) const {
+    [[nodiscard]] std::vector<T> get_row(uint32_t i) const {
         std::vector<T> row(width);
 
         for (uint32_t p = 0; p < width; ++p)
@@ -51,7 +60,7 @@ public:
         return row;
     };
 
-    [[nodiscard]] std::vector<uint32_t> get_column(uint32_t i) const {
+    [[nodiscard]] std::vector<T> get_column(uint32_t i) const {
         std::vector<T> column(hight);
 
         for (uint32_t p = 0; p < hight; ++p)

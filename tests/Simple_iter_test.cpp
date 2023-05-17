@@ -165,3 +165,21 @@ TEST(Simple_Iter, task_test6) {
 
     auto solution = simpIter_chebBoost<double>(matrix_iter, b, init_vec, tolerance, lambda_min, lambda_max, 8, 3);
 }
+
+TEST(Simple_Iter, CW_test) {
+    std::set<Triplet<double>> data1{{0, 0, 10.}, {0, 1, 3.}, {0, 2, 6.},
+                                    {1, 0, 3.}, {1, 1, 5.}, {1, 2, 1.},
+                                    {2, 0, 6.}, {2, 1, 1.}, {2, 2, 8.}};
+    CSR<double> matrix_iter(3, 3, data1);
+
+    double tolerance = 1e-12;
+    std::vector<double> b = {0.0, 0.0, 0.0};
+    std::vector<double> init_vec = {0., 0., 0.};
+    double lambda_min = 1;
+    double lambda_max = 10;
+
+    std::vector<double> solution;
+    solution = simpIter_chebBoost<double>(matrix_iter, b, init_vec, tolerance, lambda_min, lambda_max, 32, 6);
+
+    std::cout << solution[0] << " " << solution[1] << " " << solution[2];
+}
